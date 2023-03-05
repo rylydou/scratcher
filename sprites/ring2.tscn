@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://3ka5itjtr2pq"]
+
+[ext_resource type="Texture2D" uid="uid://chlup3n0fwo2n" path="res://assets/sprites/ring-2.svg" id="1_l5qdj"]
+
+[node name="Ring2" type="Sprite2D"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_l5qdj")

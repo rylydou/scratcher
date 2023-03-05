@@ -1,0 +1,198 @@
+[gd_scene load_steps=15 format=3 uid="uid://5n3i1adn5rug"]
+
+[ext_resource type="PackedScene" uid="uid://y7se8lyqnqrb" path="res://player.tscn" id="1_853u3"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_lp1b3"]
+[ext_resource type="PackedScene" uid="uid://3ce42vafpkkq" path="res://sprites/box.tscn" id="2_c4nqj"]
+[ext_resource type="Script" path="res://scripts/spawner.gd" id="3_x4feb"]
+[ext_resource type="Shader" path="res://shaders/scanlines.gdshader" id="3_y0awt"]
+[ext_resource type="PackedScene" uid="uid://dfyj3dp42srjv" path="res://power.tscn" id="4_ul4hi"]
+[ext_resource type="PackedScene" uid="uid://2qkgwb1tsh2v" path="res://dangers/floater.tscn" id="5_tkusv"]
+[ext_resource type="PackedScene" uid="uid://djtv6vljr3lou" path="res://dangers/beam.tscn" id="6_47bp6"]
+[ext_resource type="Shader" path="res://shaders/4color.gdshader" id="6_wphee"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="8_r6dvc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qi7ct"]
+shader = ExtResource("6_wphee")
+shader_parameter/topleft = Color(1, 1, 0, 1)
+shader_parameter/topright = Color(0, 1, 0, 1)
+shader_parameter/bottomleft = Color(0, 0, 1, 1)
+shader_parameter/bottomright = Color(1, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qnf34"]
+shader = ExtResource("3_y0awt")
+shader_parameter/carb_master = 1.0
+shader_parameter/carb_red = Vector2(0, -1)
+shader_parameter/carb_green = Vector2(1, 0)
+shader_parameter/carb_blue = Vector2(-1, 0)
+shader_parameter/sl_count = 50.0
+shader_parameter/sl_speed = -0.05
+shader_parameter/sl_xfactor = 0.0
+shader_parameter/sl_yfactor = 1.0
+shader_parameter/sl_opacity = 1.0
+shader_parameter/sl_power = 0.1
+shader_parameter/sl_sharpness = 10.0
+shader_parameter/sl_bias = 0.1
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cm13g"]
+size = Vector2(16, 16)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_wapsn"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_lp1b3")
+player_scene = ExtResource("1_853u3")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -128
+follow_viewport_enabled = true
+
+[node name="Colors" type="ColorRect" parent="Background"]
+material = SubResource("ShaderMaterial_qi7ct")
+offset_left = -500.0
+offset_top = -500.0
+offset_right = 500.0
+offset_bottom = 500.0
+
+[node name="Postprocess" type="CanvasLayer" parent="."]
+layer = 128
+follow_viewport_enabled = true
+
+[node name="Scanline" type="ColorRect" parent="Postprocess"]
+visible = false
+material = SubResource("ShaderMaterial_qnf34")
+offset_left = -496.0
+offset_top = -536.0
+offset_right = 504.0
+offset_bottom = 464.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="StartScreen" type="Node2D" parent="UI"]
+visible = false
+
+[node name="PromptLabel" type="Label" parent="UI/StartScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.5
+offset_top = -13.0
+offset_right = 85.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Press space to start"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="DeathScreen" type="Node2D" parent="UI"]
+visible = false
+
+[node name="DeathLabel" type="Label" parent="UI/DeathScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -100.0
+offset_right = 113.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 48
+text = "You DIED"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="PromptLabel" type="Label" parent="UI/DeathScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.5
+offset_top = -13.0
+offset_right = 85.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Try Again?"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Spawner" type="Node" parent="."]
+script = ExtResource("3_x4feb")
+power_scene = ExtResource("4_ul4hi")
+beam_scene = ExtResource("6_47bp6")
+floater_scene = ExtResource("5_tkusv")
+
+[node name="Stage" type="Node" parent="."]
+
+[node name="Platform" type="StaticBody2D" parent="Stage"]
+position = Vector2(0, 128)
+scale = Vector2(32, 1.5)
+collision_mask = 0
+
+[node name="Box" parent="Stage/Platform" instance=ExtResource("2_c4nqj")]
+
+[node name="Shape" type="CollisionShape2D" parent="Stage/Platform"]
+shape = SubResource("RectangleShape2D_cm13g")
+
+[node name="Platform2" type="StaticBody2D" parent="Stage"]
+position = Vector2(0, 88)
+scale = Vector2(4, 4)
+collision_mask = 0
+
+[node name="Box" parent="Stage/Platform2" instance=ExtResource("2_c4nqj")]
+
+[node name="Shape" type="CollisionShape2D" parent="Stage/Platform2"]
+shape = SubResource("RectangleShape2D_cm13g")
+
+[node name="Platform3" type="StaticBody2D" parent="Stage"]
+position = Vector2(-160, 56)
+scale = Vector2(4, 1)
+collision_mask = 0
+
+[node name="Box" parent="Stage/Platform3" instance=ExtResource("2_c4nqj")]
+
+[node name="Shape" type="CollisionShape2D" parent="Stage/Platform3"]
+shape = SubResource("RectangleShape2D_cm13g")
+
+[node name="Platform4" type="StaticBody2D" parent="Stage"]
+position = Vector2(160, 8)
+scale = Vector2(4, 1)
+collision_mask = 0
+
+[node name="Box" parent="Stage/Platform4" instance=ExtResource("2_c4nqj")]
+
+[node name="Shape" type="CollisionShape2D" parent="Stage/Platform4"]
+shape = SubResource("RectangleShape2D_cm13g")
+
+[node name="SpawnPoint" type="Marker2D" parent="Stage"]
+gizmo_extents = 8.0
+
+[node name="Bottom Bounds" type="Area2D" parent="Stage"]
+position = Vector2(0, 192)
+collision_layer = 16
+collision_mask = 4
+
+[node name="Shape" type="CollisionShape2D" parent="Stage/Bottom Bounds"]
+position = Vector2(0, -8)
+shape = SubResource("WorldBoundaryShape2D_wapsn")
+
+[node name="World" type="Node" parent="."]
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("8_r6dvc")

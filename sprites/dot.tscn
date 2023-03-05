@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://diwrfxiemgb04"]
+
+[ext_resource type="Texture2D" uid="uid://df51cinl7v6on" path="res://assets/sprites/dot.svg" id="1_yisrj"]
+
+[node name="Dot" type="Sprite2D"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_yisrj")

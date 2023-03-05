@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="72"
+   height="48"
+   viewBox="0 0 72 48"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="floater.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="20.117222"
+     inkscape:cx="38.101681"
+     inkscape:cy="24.009279"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid236"
+       originx="0"
+       originy="0" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid341"
+       spacingx="16"
+       spacingy="16"
+       originx="0"
+       originy="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:none;stroke:#ffffff;stroke-width:2;paint-order:markers fill stroke"
+       id="rect292"
+       width="14"
+       height="14"
+       x="5"
+       y="5"
+       ry="4"
+       rx="4" />
+    <rect
+       style="fill:none;stroke:#ffffff;stroke-width:2;paint-order:markers fill stroke"
+       id="rect292-5"
+       width="14"
+       height="14"
+       x="53"
+       y="5"
+       ry="4"
+       rx="4" />
+    <rect
+       style="fill:none;stroke:#ffffff;stroke-width:2;paint-order:markers fill stroke"
+       id="rect292-5-6"
+       width="14"
+       height="14"
+       x="53"
+       y="29"
+       ry="4"
+       rx="4" />
+    <rect
+       style="fill:none;stroke:#ffffff;stroke-width:2;paint-order:markers fill stroke"
+       id="rect292-3"
+       width="14"
+       height="14"
+       x="29"
+       y="5"
+       ry="4"
+       rx="4" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;paint-order:markers fill stroke"
+       d="m 32.780435,12 h 6.33913"
+       id="path604" />
+    <rect
+       style="fill:none;stroke:#ffffff;stroke-width:2;paint-order:markers fill stroke"
+       id="rect292-3-6"
+       width="14"
+       height="14"
+       x="5"
+       y="29"
+       ry="4"
+       rx="4" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;paint-order:markers fill stroke"
+       d="m 8.780435,36 h 6.33913"
+       id="path604-7" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;paint-order:markers fill stroke"
+       d="m 12,33 v 6"
+       id="path1193" />
+    <rect
+       style="fill:none;stroke:#ffffff;stroke-width:2;paint-order:markers fill stroke"
+       id="rect292-3-5"
+       width="14"
+       height="14"
+       x="29"
+       y="29"
+       ry="4"
+       rx="4" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;paint-order:markers fill stroke"
+       d="m 34,38 4,-4"
+       id="path604-3"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;paint-order:markers fill stroke"
+       d="m 58,38 4,-4"
+       id="path604-3-2"
+       sodipodi:nodetypes="cc" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.99999;stroke-linecap:round;paint-order:markers fill stroke"
+       id="path1288"
+       cx="60"
+       cy="12"
+       r="2" />
+    <path
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;paint-order:markers fill stroke"
+       d="M 62,38 58,34"
+       id="path1475"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>

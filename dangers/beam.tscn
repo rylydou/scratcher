@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://djtv6vljr3lou"]
+
+[ext_resource type="Script" path="res://dangers/beam.gd" id="1_eb0fx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5gbbw"]
+size = Vector2(16, 1024)
+
+[node name="Beam" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_eb0fx")
+warn_time = 2.667
+start_delay = 0.333
+active_layer = 16
+tilt_min = 5.0
+tilt_max = 15.0
+tilt_time = 4.0
+move_distance_min = 48.0
+move_distance_max = 96.0
+move_time = 4.0
+stay_time = 6.0
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5gbbw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -512.0
+offset_right = 8.0
+offset_bottom = 512.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0.333333, 1)

@@ -13,8 +13,12 @@ class_name Main extends Node
 
 @onready var spawner: Node = $Spawner
 
-var user_can_start_game := true
-var running	:= false
+var running := false
+
+var points: int
+var start_timestamp: int
+var acumulated_time: float
+
 func _ready() -> void:
 	EventBus.player_died.connect(player_died)
 	EventBus.game_started.connect(start_game)
@@ -22,17 +26,36 @@ func _ready() -> void:
 	postprocess.show()
 
 func _process(delta: float) -> void:
-	if not running and user_can_start_game:
+	if not running:
 		if Input.is_action_just_pressed('dash'):
 			start_game()
 	
 	if Input.is_key_pressed(KEY_R):
 		get_tree().reload_current_scene()
+
+func _physics_process(delta: float) -> void:
+	if not running: return
+	acumulated_time += delta
 	
-	if running:
-		spawner.run(delta) 
+	var score := calculate_score()
+	
+	$Background/Score/Label.text = str(score).pad_zeros(8)
+	$Background/Score/Label/TimeLabel.text = time_convert(acumulated_time)
+	
+	spawner.run(delta)
+
+func time_convert(time_in_sec: float) -> String:
+	var fracts := fmod(time_in_sec, 1) * 100
+	var seconds := int(time_in_sec)%60
+	var minutes := int(time_in_sec)/60
+	
+	return "%02d:%02d:%02d" % [minutes, seconds, fracts]
 
 func start_game() -> void:
+	points = 0
+	start_timestamp = Time.get_ticks_msec()
+	acumulated_time = 0.
+	
 	start_screen.hide()
 	death_screen.hide()
 	
@@ -53,10 +76,11 @@ func player_died() -> void:
 	
 	death_screen.show()
 	
-	user_can_start_game = false
 	$UI/DeathScreen/PromptLabel.hide()
-	
-	await get_tree().create_timer(0.5).timeout
-	
-	user_can_start_game = true
+	await get_tree().create_timer(1.0).timeout
 	$UI/DeathScreen/PromptLabel.show()
+
+func calculate_score() -> int:
+	var score := points
+	score += acumulated_time * (60./2000.)
+	return score

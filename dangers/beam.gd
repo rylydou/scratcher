@@ -70,6 +70,8 @@ func do_tilt() -> void:
 func do_move() -> void:
 	var tween := get_tree().create_tween()
 	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, 'position:x',
 		position.x + randf_range(move_distance_min, move_distance_max)*(-1 if randi()%2 == 0 else 1),
 		move_time)

@@ -19,6 +19,9 @@ var points: int
 var start_timestamp: int
 var acumulated_time: float
 
+func _enter_tree() -> void:
+	Globals.main = self
+
 func _ready() -> void:
 	EventBus.player_died.connect(player_died)
 	EventBus.game_started.connect(start_game)
@@ -35,6 +38,7 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if not running: return
+	
 	acumulated_time += delta
 	
 	var score := calculate_score()
@@ -82,5 +86,5 @@ func player_died() -> void:
 
 func calculate_score() -> int:
 	var score := points
-	score += acumulated_time * (60./2000.)
+	score += acumulated_time * (2000./60.)
 	return score

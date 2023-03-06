@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://cx5onqwiu8y56"]
+
+[ext_resource type="Script" path="res://dangers/rocket.gd" id="1_8hwl5"]
+[ext_resource type="Texture2D" uid="uid://df51cinl7v6on" path="res://assets/sprites/dot.svg" id="1_8k1u7"]
+[ext_resource type="Texture2D" uid="uid://cv1ibuejb450m" path="res://assets/sprites/ring-2xl.svg" id="3_nbm48"]
+[ext_resource type="Texture2D" uid="uid://dtk2eo8xtbblg" path="res://assets/sprites/dot-xl.svg" id="4_gd510"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jqays"]
+radius = 32.0
+
+[node name="Rocket" type="Node2D"]
+script = ExtResource("1_8hwl5")
+speed = 512.0
+active_layer = 16
+
+[node name="Rocket" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0.333333, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_8k1u7")
+
+[node name="Target" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0.333333, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_nbm48")
+
+[node name="Explosion" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite" type="Sprite2D" parent="Explosion"]
+modulate = Color(1, 0, 0.333333, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_gd510")
+
+[node name="Shape" type="CollisionShape2D" parent="Explosion"]
+shape = SubResource("CircleShape2D_jqays")

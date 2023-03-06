@@ -286,7 +286,7 @@ func hurt() -> void:
 	if inv_timer > 0:
 		return
 	
-	if powers > power_for_inv:
+	if powers >= power_for_inv:
 		# consume all the power, either 2 or 1
 		powers = 0
 		inv_timer = 1.0

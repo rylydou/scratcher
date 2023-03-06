@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://5n3i1adn5rug"]
+[gd_scene load_steps=25 format=3 uid="uid://5n3i1adn5rug"]
 
 [ext_resource type="PackedScene" uid="uid://y7se8lyqnqrb" path="res://player.tscn" id="1_853u3"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_lp1b3"]
@@ -16,6 +16,7 @@
 [ext_resource type="Shader" path="res://shaders/4color.gdshader" id="6_wphee"]
 [ext_resource type="Shader" path="res://shaders/vignette.gdshader" id="6_xeaem"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="8_r6dvc"]
+[ext_resource type="PackedScene" uid="uid://cx5onqwiu8y56" path="res://dangers/rocket.tscn" id="15_8ajws"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qi7ct"]
 shader = ExtResource("6_wphee")
@@ -243,6 +244,7 @@ script = ExtResource("3_x4feb")
 power = ExtResource("4_ul4hi")
 beam = ExtResource("6_47bp6")
 floater = ExtResource("5_tkusv")
+rocket = ExtResource("15_8ajws")
 
 [node name="Stage" type="Node" parent="."]
 

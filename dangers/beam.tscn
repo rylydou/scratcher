@@ -13,12 +13,12 @@ warn_time = 2.667
 start_delay = 0.333
 active_layer = 16
 tilt_min = 5.0
-tilt_max = 15.0
-tilt_time = 4.0
+tilt_max = 10.0
+tilt_time = 3.0
 move_distance_min = 48.0
 move_distance_max = 96.0
 move_time = 4.0
-stay_time = 6.0
+stay_time = 4.0
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5gbbw")

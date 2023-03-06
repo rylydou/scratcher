@@ -8,6 +8,8 @@ var next_power: float
 var next_beam: float
 @export var floater: PackedScene
 var next_floater: float
+@export var rocket: PackedScene
+var next_rocket: float
 
 @onready var world: Node = $'../World'
 
@@ -31,6 +33,15 @@ func run(delta: float) -> void:
 	if next_floater < 0:
 		next_floater = randf_range(40/TPS, 60/TPS)
 		spawn(floater)
+	
+	next_rocket -= delta
+	if next_rocket < 0:
+		next_rocket = randf_range(90/TPS, 120/TPS)
+		if randi() % 3 == 0:
+			for i in 3:
+				spawn(rocket)
+		else:
+			spawn(rocket)
 
 func spawn(scene: PackedScene) -> void:
 	var node := scene.instantiate() as Node2D

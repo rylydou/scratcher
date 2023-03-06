@@ -11,7 +11,7 @@ var next_floater: float
 @export var rocket: PackedScene
 var next_rocket: float
 
-@onready var world: Node = $'../World'
+@onready var world: Node = $'../Game/World'
 
 func reset() -> void:
 	next_beam = -1.0

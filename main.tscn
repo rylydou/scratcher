@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://5n3i1adn5rug"]
+[gd_scene load_steps=27 format=3 uid="uid://5n3i1adn5rug"]
 
 [ext_resource type="PackedScene" uid="uid://y7se8lyqnqrb" path="res://player.tscn" id="1_853u3"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_lp1b3"]
@@ -16,6 +16,7 @@
 [ext_resource type="Shader" path="res://shaders/4color.gdshader" id="6_wphee"]
 [ext_resource type="Shader" path="res://shaders/vignette.gdshader" id="6_xeaem"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="8_r6dvc"]
+[ext_resource type="Shader" path="res://shaders/background_blur.gdshader" id="11_pspac"]
 [ext_resource type="PackedScene" uid="uid://cx5onqwiu8y56" path="res://dangers/rocket.tscn" id="15_8ajws"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qi7ct"]
@@ -37,6 +38,11 @@ shader_parameter/scroll_direction = Vector2(0, 0)
 shader_parameter/scrolling_speed = 0.08
 shader_parameter/enable_palette_cycling = false
 shader_parameter/palette_speed = 0.1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cm13g"]
+size = Vector2(16, 16)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_wapsn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ju8iq"]
 shader = ExtResource("6_r7iwf")
@@ -60,18 +66,27 @@ shader_parameter/sl_bias = 0.1
 shader = ExtResource("6_xeaem")
 shader_parameter/vignette_intensity = 0.4
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cm13g"]
-size = Vector2(16, 16)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_wapsn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gl5og"]
+shader = ExtResource("11_pspac")
+shader_parameter/blur_amount = 8.0
+shader_parameter/mix_amount = 0.5
+shader_parameter/color_over = Color(0, 0, 0, 1)
+shader_parameter/noise_size = 12.0
+shader_parameter/noise_fps = 6.0
+shader_parameter/noise_color = Color(1, 1, 1, 0.0980392)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lp1b3")
 player_scene = ExtResource("1_853u3")
 
-[node name="Background" type="CanvasLayer" parent="."]
-layer = -128
-follow_viewport_enabled = true
+[node name="Spawner" type="Node" parent="."]
+script = ExtResource("3_x4feb")
+power = ExtResource("4_ul4hi")
+beam = ExtResource("6_47bp6")
+floater = ExtResource("5_tkusv")
+rocket = ExtResource("15_8ajws")
+
+[node name="Background" type="CanvasGroup" parent="."]
 
 [node name="Background" type="Node2D" parent="Background"]
 
@@ -83,6 +98,7 @@ offset_right = 500.0
 offset_bottom = 500.0
 
 [node name="Mother" type="TextureRect" parent="Background/Background"]
+visible = false
 modulate = Color(1, 1, 1, 0.1)
 material = SubResource("ShaderMaterial_63q27")
 anchors_preset = 8
@@ -147,9 +163,66 @@ text = "00:00:00"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Postprocess" type="CanvasLayer" parent="."]
-layer = 100
-follow_viewport_enabled = true
+[node name="Game" type="Node2D" parent="."]
+
+[node name="Stage" type="Node2D" parent="Game"]
+
+[node name="Platform" type="StaticBody2D" parent="Game/Stage"]
+position = Vector2(0, 128)
+scale = Vector2(32, 1.5)
+collision_mask = 0
+
+[node name="Box" parent="Game/Stage/Platform" instance=ExtResource("2_c4nqj")]
+
+[node name="Shape" type="CollisionShape2D" parent="Game/Stage/Platform"]
+shape = SubResource("RectangleShape2D_cm13g")
+
+[node name="Platform2" type="StaticBody2D" parent="Game/Stage"]
+position = Vector2(0, 88)
+scale = Vector2(4, 4)
+collision_mask = 0
+
+[node name="Box" parent="Game/Stage/Platform2" instance=ExtResource("2_c4nqj")]
+
+[node name="Shape" type="CollisionShape2D" parent="Game/Stage/Platform2"]
+shape = SubResource("RectangleShape2D_cm13g")
+
+[node name="Platform3" type="StaticBody2D" parent="Game/Stage"]
+position = Vector2(-160, 56)
+scale = Vector2(4, 1)
+collision_mask = 0
+
+[node name="Box" parent="Game/Stage/Platform3" instance=ExtResource("2_c4nqj")]
+
+[node name="Shape" type="CollisionShape2D" parent="Game/Stage/Platform3"]
+shape = SubResource("RectangleShape2D_cm13g")
+
+[node name="Platform4" type="StaticBody2D" parent="Game/Stage"]
+position = Vector2(160, 8)
+scale = Vector2(4, 1)
+collision_mask = 0
+
+[node name="Box" parent="Game/Stage/Platform4" instance=ExtResource("2_c4nqj")]
+
+[node name="Shape" type="CollisionShape2D" parent="Game/Stage/Platform4"]
+shape = SubResource("RectangleShape2D_cm13g")
+
+[node name="SpawnPoint" type="Marker2D" parent="Game/Stage"]
+gizmo_extents = 8.0
+
+[node name="Bottom Bounds" type="Area2D" parent="Game/Stage"]
+position = Vector2(0, 192)
+collision_layer = 16
+collision_mask = 4
+
+[node name="Shape" type="CollisionShape2D" parent="Game/Stage/Bottom Bounds"]
+position = Vector2(0, -8)
+shape = SubResource("WorldBoundaryShape2D_wapsn")
+
+[node name="World" type="Node2D" parent="Game"]
+
+[node name="Postprocess" type="Node2D" parent="."]
+visible = false
 
 [node name="ColorOffset" type="ColorRect" parent="Postprocess"]
 material = SubResource("ShaderMaterial_ju8iq")
@@ -175,13 +248,15 @@ offset_bottom = 464.0
 color = Color(0, 0, 0, 0.501961)
 
 [node name="UI" type="CanvasLayer" parent="."]
-layer = 128
 follow_viewport_enabled = true
 
-[node name="StartScreen" type="Node2D" parent="UI"]
+[node name="StartScreen" type="Control" parent="UI"]
 visible = false
+layout_mode = 3
+anchors_preset = 0
 
 [node name="PromptLabel" type="Label" parent="UI/StartScreen"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -195,112 +270,76 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("5_ctymc")
 text = "Press space to start"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="DeathScreen" type="Node2D" parent="UI"]
+[node name="DeathScreen" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="UI/DeathScreen"]
 visible = false
+material = SubResource("ShaderMaterial_gl5og")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
 
 [node name="DeathLabel" type="Label" parent="UI/DeathScreen"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -113.0
-offset_top = -100.0
-offset_right = 113.0
-offset_bottom = -30.0
+offset_left = -216.0
+offset_top = -80.0
+offset_right = 216.0
+offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-theme_override_font_sizes/font_size = 48
+theme_override_colors/font_shadow_color = Color(1, 0, 0.333333, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("4_clpxv")
+theme_override_font_sizes/font_size = 64
 text = "You DIED"
 horizontal_alignment = 1
+vertical_alignment = 1
 uppercase = true
 
 [node name="PromptLabel" type="Label" parent="UI/DeathScreen"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -85.5
-offset_top = -13.0
-offset_right = 85.5
-offset_bottom = 13.0
+offset_left = -80.0
+offset_top = 20.0
+offset_right = 80.0
+offset_bottom = 39.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("5_ctymc")
 text = "Try Again?"
 horizontal_alignment = 1
+vertical_alignment = 1
 uppercase = true
-
-[node name="Spawner" type="Node" parent="."]
-script = ExtResource("3_x4feb")
-power = ExtResource("4_ul4hi")
-beam = ExtResource("6_47bp6")
-floater = ExtResource("5_tkusv")
-rocket = ExtResource("15_8ajws")
-
-[node name="Stage" type="Node" parent="."]
-
-[node name="Platform" type="StaticBody2D" parent="Stage"]
-position = Vector2(0, 128)
-scale = Vector2(32, 1.5)
-collision_mask = 0
-
-[node name="Box" parent="Stage/Platform" instance=ExtResource("2_c4nqj")]
-
-[node name="Shape" type="CollisionShape2D" parent="Stage/Platform"]
-shape = SubResource("RectangleShape2D_cm13g")
-
-[node name="Platform2" type="StaticBody2D" parent="Stage"]
-position = Vector2(0, 88)
-scale = Vector2(4, 4)
-collision_mask = 0
-
-[node name="Box" parent="Stage/Platform2" instance=ExtResource("2_c4nqj")]
-
-[node name="Shape" type="CollisionShape2D" parent="Stage/Platform2"]
-shape = SubResource("RectangleShape2D_cm13g")
-
-[node name="Platform3" type="StaticBody2D" parent="Stage"]
-position = Vector2(-160, 56)
-scale = Vector2(4, 1)
-collision_mask = 0
-
-[node name="Box" parent="Stage/Platform3" instance=ExtResource("2_c4nqj")]
-
-[node name="Shape" type="CollisionShape2D" parent="Stage/Platform3"]
-shape = SubResource("RectangleShape2D_cm13g")
-
-[node name="Platform4" type="StaticBody2D" parent="Stage"]
-position = Vector2(160, 8)
-scale = Vector2(4, 1)
-collision_mask = 0
-
-[node name="Box" parent="Stage/Platform4" instance=ExtResource("2_c4nqj")]
-
-[node name="Shape" type="CollisionShape2D" parent="Stage/Platform4"]
-shape = SubResource("RectangleShape2D_cm13g")
-
-[node name="SpawnPoint" type="Marker2D" parent="Stage"]
-gizmo_extents = 8.0
-
-[node name="Bottom Bounds" type="Area2D" parent="Stage"]
-position = Vector2(0, 192)
-collision_layer = 16
-collision_mask = 4
-
-[node name="Shape" type="CollisionShape2D" parent="Stage/Bottom Bounds"]
-position = Vector2(0, -8)
-shape = SubResource("WorldBoundaryShape2D_wapsn")
-
-[node name="World" type="Node" parent="."]
 
 [node name="Camera" type="Camera2D" parent="."]
 script = ExtResource("8_r6dvc")

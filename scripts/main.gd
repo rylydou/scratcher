@@ -2,16 +2,15 @@ class_name Main extends Node
 
 @export var player_scene: PackedScene
 
-@onready var world: Node = $World
-@onready var stage: Node = $Stage
-@onready var spawn_point: Marker2D = $Stage/SpawnPoint
-
-@onready var start_screen: Node2D = $UI/StartScreen
-@onready var death_screen: Node2D = $UI/DeathScreen
-
-@onready var postprocess: CanvasLayer = $Postprocess
-
+@onready var world: Node2D = $Game/World
+@onready var stage: Node2D = $Game/Stage
+# Nodes
 @onready var spawner: Node = $Spawner
+@onready var spawn_point: Marker2D = $Game/Stage/SpawnPoint
+# UI
+@onready var start_screen: Control = $UI/StartScreen
+@onready var death_screen: Control = $UI/DeathScreen
+@onready var postprocess: Node2D = $Postprocess
 
 var running := false
 
@@ -79,10 +78,6 @@ func player_died() -> void:
 	running = false
 	
 	death_screen.show()
-	
-	$UI/DeathScreen/PromptLabel.hide()
-	await get_tree().create_timer(1.0).timeout
-	$UI/DeathScreen/PromptLabel.show()
 
 func calculate_score() -> int:
 	var score := points

@@ -47,15 +47,17 @@ var jump_buffer_timer := -1.0
 var dash_timer := 0.0
 var can_dash := false
 
-@export_group('Misc')
+@export_group('Power')
 @export var max_power := 3
 @export var power_for_inv := 2
 @export var power_inv_frames := 60.0
 @export var power_init_lag := 5
 @export var power_btw_lag := 5
 
-@onready var flip_node: Node2D = $Flip
-@onready var art_node: Node2D = $Flip/Art
+@export_group('Animation')
+@export var air_turn_speed := 180.0
+
+@onready var art_node: Node2D = $Art
 @onready var dash_line: Line2D = $DashLine
 @onready var trail: Node2D = $Trail
 
@@ -78,10 +80,6 @@ var history: Array[Vector2] = []
 func _process(delta: float) -> void:
 	process_inputs()
 	
-	if input_move != 0 and dash_timer <= 0:
-		facing_direction = sign(input_move)
-		$Flip.scale.x = facing_direction
-	
 	if inv_timer > 0.0:
 		modulate.a = randf()
 	else:
@@ -95,6 +93,10 @@ func _process(delta: float) -> void:
 		var sample_index := power_init_lag + (power_btw_lag*index)
 		if hisotry_size > sample_index:
 			c.position = c.position.move_toward(history[sample_index], (dash_distance/dash_time)*delta)
+	
+	art_node.rotation += deg_to_rad(air_turn_speed)*(speed_move/move_max)*delta
+	if is_on_floor():
+		art_node.rotation = 0.
 
 func reset_movement() -> void:
 	speed_move = 0.0
@@ -125,6 +127,9 @@ var speed_extra := 0.0
 var speed_vertical := 0.0
 var facing_direction := 1.0
 func _physics_process(delta: float) -> void:
+	if input_move != 0 and dash_timer <= 0:
+		facing_direction = sign(input_move)
+	
 	history.push_front(position)
 	if history.size() > 60:
 		history.pop_back()

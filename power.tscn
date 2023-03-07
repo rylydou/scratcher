@@ -10,7 +10,7 @@ radius = 6.0
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_45yl2")
-bonus_points = 300
+bonus_points = 1000
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
@@ -18,5 +18,16 @@ texture = ExtResource("1_po4hk")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_oqq15")
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = -50
+offset_left = -15.0
+offset_top = -11.0
+offset_right = 15.0
+theme_override_font_sizes/font_size = 8
+text = "+500"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

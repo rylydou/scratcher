@@ -22,6 +22,7 @@ func run(delta: float) -> void:
 	next_power -= delta
 	if next_power < 0:
 		next_power = randf_range(160/TPS, 240/TPS)
+		#next_power = randf_range(30/TPS, 30/TPS)
 		spawn(power)
 	
 	next_beam -= delta

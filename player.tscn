@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://3ce42vafpkkq" path="res://sprites/box.tscn" id="1_quvpx"]
 [ext_resource type="Script" path="res://player.gd" id="1_vwhuc"]
-[ext_resource type="Texture2D" uid="uid://df51cinl7v6on" path="res://assets/sprites/dot.svg" id="3_fysdq"]
+[ext_resource type="Texture2D" uid="uid://dvb5fg4b72yjq" path="res://assets/sprites/power.svg" id="3_vye06"]
 
 [sub_resource type="Gradient" id="Gradient_u0t2v"]
 colors = PackedColorArray(1, 1, 1, 0.75, 1, 1, 1, 1)
@@ -27,6 +27,9 @@ move_opp_air_ticks = 8.0
 jump_ticks = 50
 jump_height = 64.0
 max_fall_speed_ratio = 1.0
+coyote_time_ticks = 12
+jump_buffer_ticks = 8
+max_bonknuge_distance = 8.0
 dash_distance = 100.0
 dash_ticks = 8.0
 air_turn_speed = 360.0
@@ -58,9 +61,9 @@ debug_color = Color(1, 0, 0, 0.498039)
 [node name="Trail" type="Node2D" parent="."]
 top_level = true
 
-[node name="N1" type="Sprite2D" parent="Trail"]
+[node name="Dot" type="Sprite2D" parent="Trail"]
 modulate = Color(1, 1, 1, 0.67)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_fysdq")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_vye06")
 
 [connection signal="area_entered" from="HurtboxArea" to="." method="_on_hurtbox_area_area_entered"]

@@ -24,9 +24,9 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="25.685761"
-     inkscape:cx="10.881515"
-     inkscape:cy="10.511661"
+     inkscape:zoom="65.214294"
+     inkscape:cx="10.963854"
+     inkscape:cy="11.577216"
      inkscape:current-layer="layer1">
     <inkscape:grid
        type="xygrid"
@@ -39,14 +39,14 @@
      inkscape:groupmode="layer"
      id="layer1">
     <ellipse
-       style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        id="path1699"
        cx="12"
        cy="12"
-       rx="4"
-       ry="3.9999998" />
+       rx="3"
+       ry="2.9999998" />
     <ellipse
-       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.00001;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       style="display:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.00001;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        id="path2064"
        cx="12.000004"
        cy="12"

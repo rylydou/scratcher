@@ -40,6 +40,9 @@ func fade_in() -> void:
 	var tween := get_tree().create_tween()
 	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	tween.tween_property(self, 'modulate:a', .5, warn_time)
+	#tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
+	tween.parallel().tween_property(self, 'position:y', position.y, warn_time).from(-1024.)
+	tween.parallel().tween_property(self, 'scale:x', 1., warn_time).from(0.)
 	
 	await tween.finished
 	collision_layer = active_layer

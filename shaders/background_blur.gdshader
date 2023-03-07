@@ -8,7 +8,7 @@ uniform float noise_size = 12.0;
 uniform float noise_fps = 6.0;
 uniform vec4 noise_color : source_color;
 
-uniform sampler2D SCREEN_TEXTURE: hint_screen_texture;
+uniform sampler2D SCREEN_TEXTURE: hint_screen_texture, filter_linear_mipmap;
 
 vec2 random(vec2 uv){
     uv = vec2( dot(uv, vec2(127.1,311.7) ),
@@ -23,8 +23,8 @@ void fragment() {
 	
 	vec4 fin = mix(blurred, color_over, mix_amount);
 	
-	float noies_seed = fract(floor(TIME * noise_fps) / noise_fps);
-	float noise = clamp(random((ceil(SCREEN_UV * screen_resolution) / screen_resolution) + noies_seed).x, 0.0, 1.0);
+	float noies_seed = fract(floor(TIME*noise_fps) / noise_fps) + floor(TIME)/100.;
+	float noise = clamp(random((ceil(SCREEN_UV*screen_resolution)/screen_resolution) + noies_seed).x, 0., 1.);
 	fin.rgb += noise_color.rgb * noise * noise_color.a;
 	
 	COLOR = fin;

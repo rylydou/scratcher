@@ -68,8 +68,8 @@ shader_parameter/vignette_intensity = 0.4
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gl5og"]
 shader = ExtResource("11_pspac")
-shader_parameter/blur_amount = 8.0
-shader_parameter/mix_amount = 0.5
+shader_parameter/blur_amount = 1.0
+shader_parameter/mix_amount = 0.0
 shader_parameter/color_over = Color(0, 0, 0, 1)
 shader_parameter/noise_size = 12.0
 shader_parameter/noise_fps = 6.0
@@ -87,6 +87,7 @@ floater = ExtResource("5_tkusv")
 rocket = ExtResource("15_8ajws")
 
 [node name="Background" type="CanvasGroup" parent="."]
+z_index = -100
 
 [node name="Background" type="Node2D" parent="Background"]
 
@@ -98,7 +99,6 @@ offset_right = 500.0
 offset_bottom = 500.0
 
 [node name="Mother" type="TextureRect" parent="Background/Background"]
-visible = false
 modulate = Color(1, 1, 1, 0.1)
 material = SubResource("ShaderMaterial_63q27")
 anchors_preset = 8
@@ -222,7 +222,7 @@ shape = SubResource("WorldBoundaryShape2D_wapsn")
 [node name="World" type="Node2D" parent="Game"]
 
 [node name="Postprocess" type="Node2D" parent="."]
-visible = false
+z_index = 100
 
 [node name="ColorOffset" type="ColorRect" parent="Postprocess"]
 material = SubResource("ShaderMaterial_ju8iq")
@@ -284,33 +284,26 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Background" type="ColorRect" parent="UI/DeathScreen"]
-visible = false
 material = SubResource("ShaderMaterial_gl5og")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+layout_mode = 2
+offset_left = -448.0
+offset_top = -440.0
+offset_right = 448.0
+offset_bottom = 456.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.501961)
 
 [node name="DeathLabel" type="Label" parent="UI/DeathScreen"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
 offset_left = -216.0
-offset_top = -80.0
+offset_top = -88.0
 offset_right = 216.0
-offset_bottom = -13.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_bottom = -21.0
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_colors/font_shadow_color = Color(1, 0, 0.333333, 1)
-theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 4
 theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("4_clpxv")
@@ -322,17 +315,10 @@ uppercase = true
 
 [node name="PromptLabel" type="Label" parent="UI/DeathScreen"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
 offset_left = -80.0
-offset_top = 20.0
+offset_top = 24.0
 offset_right = 80.0
-offset_bottom = 39.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_bottom = 43.0
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("5_ctymc")

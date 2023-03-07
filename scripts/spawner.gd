@@ -10,13 +10,17 @@ var next_beam: float
 var next_floater: float
 @export var rocket: PackedScene
 var next_rocket: float
+@export var big_floater: PackedScene
+var next_big_floater: float
 
 @onready var world: Node = $'../Game/World'
 
 func reset() -> void:
-	next_beam = -1.0
-	next_power = -1.0
-	next_floater = 1.0
+	next_beam = -1.
+	next_power = -1.
+	next_floater = -1.
+	next_rocket = 2.
+	next_big_floater = 5.
 
 func run(delta: float) -> void:
 	next_power -= delta
@@ -34,6 +38,11 @@ func run(delta: float) -> void:
 	if next_floater < 0:
 		next_floater = randf_range(40/TPS, 60/TPS)
 		spawn(floater)
+	
+	next_big_floater -= delta
+	if next_big_floater < 0:
+		next_big_floater = randf_range(240/TPS, 360/TPS)
+		spawn(big_floater)
 	
 	next_rocket -= delta
 	if next_rocket < 0:

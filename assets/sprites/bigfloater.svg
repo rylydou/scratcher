@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="16"
+   height="16"
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="bigfloater.svg"
+   inkscape:export-filename="bigfloater.png"
+   inkscape:export-xdpi="1536"
+   inkscape:export-ydpi="1536"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="true"
+     shape-rendering="auto"
+     inkscape:zoom="45.241443"
+     inkscape:cx="9.316679"
+     inkscape:cy="8.0788758"
+     inkscape:window-width="1920"
+     inkscape:window-height="1080"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid167"
+       empspacing="8"
+       dotted="false"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="powerclip"
+       id="path-effect1509"
+       is_visible="true"
+       lpeversion="1"
+       inverse="true"
+       flatten="false"
+       hide_clip="false"
+       message="Use fill-rule evenodd on &lt;b&gt;fill and stroke&lt;/b&gt; dialog if no flatten result after convert clip to paths." />
+    <inkscape:path-effect
+       effect="powerclip"
+       id="path-effect1458"
+       is_visible="true"
+       lpeversion="1"
+       inverse="true"
+       flatten="false"
+       hide_clip="false"
+       message="Use fill-rule evenodd on &lt;b&gt;fill and stroke&lt;/b&gt; dialog if no flatten result after convert clip to paths." />
+    <inkscape:path-effect
+       effect="powerclip"
+       id="path-effect1259"
+       is_visible="true"
+       lpeversion="1"
+       inverse="true"
+       flatten="false"
+       hide_clip="false"
+       message="Use fill-rule evenodd on &lt;b&gt;fill and stroke&lt;/b&gt; dialog if no flatten result after convert clip to paths." />
+    <filter
+       id="mask-powermask-path-effect1483_inverse"
+       inkscape:label="filtermask-powermask-path-effect1483"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect1483_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect1483_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <filter
+       id="mask-powermask-path-effect1496_inverse"
+       inkscape:label="filtermask-powermask-path-effect1496"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect1496_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect1496_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1505">
+      <path
+         id="path1507"
+         style="display:none;fill:#e01b24;stroke:none;stroke-width:1.99999;stroke-dasharray:none;stroke-dashoffset:7.4;stroke-opacity:1;paint-order:stroke markers fill"
+         inkscape:label="rect1107"
+         d="m 5,-1 v 6 h -6 v 6 h 6 v 6 h 6 v -6 h 6 V 5 h -6 v -6 z"
+         sodipodi:nodetypes="ccccccccccccc" />
+      <path
+         id="lpe_path-effect1509"
+         style="display:block;fill:#e01b24;stroke:none;stroke-width:1.99999;stroke-dasharray:none;stroke-dashoffset:7.4;stroke-opacity:1;paint-order:stroke markers fill"
+         class="powerclip"
+         d="M -5,-5 H 21.000001 V 21.000001 H -5 Z m 10,4 v 6 h -6 v 6 h 6 v 6 h 6 v -6 h 6 V 5 h -6 v -6 z" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       inkscape:groupmode="maskhelper"
+       id="g1502"
+       clip-path="url(#clipPath1505)"
+       inkscape:path-effect="#path-effect1509"
+       style="display:none">
+      <path
+         style="fill:none;stroke:#ffffff;stroke-width:1;stroke-dasharray:none;stroke-dashoffset:7.4;stroke-opacity:1;paint-order:stroke markers fill"
+         id="rect169"
+         width="15.000001"
+         height="15.000001"
+         x="0.5"
+         y="0.5"
+         ry="4.5"
+         rx="4.500001"
+         clip-path="none"
+         inkscape:label="rect169"
+         d="M 5.000001,0.5 H 11 c 2.493001,0 4.500001,2.007 4.500001,4.5 v 6.000001 c 0,2.493 -2.007,4.5 -4.500001,4.5 H 5.000001 c -2.4930006,0 -4.500001,-2.007 -4.500001,-4.5 V 5 C 0.5,2.507 2.5070004,0.5 5.000001,0.5 Z"
+         sodipodi:type="rect" />
+    </g>
+    <circle
+       style="fill:none;stroke:#ffffff;stroke-width:1;stroke-dasharray:none;stroke-dashoffset:7.4;stroke-opacity:1;paint-order:stroke markers fill"
+       id="path1584"
+       cx="8"
+       cy="8"
+       r="7.5000005" />
+  </g>
+</svg>

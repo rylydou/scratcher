@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://5n3i1adn5rug"]
+[gd_scene load_steps=28 format=3 uid="uid://5n3i1adn5rug"]
 
 [ext_resource type="PackedScene" uid="uid://y7se8lyqnqrb" path="res://player.tscn" id="1_853u3"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_lp1b3"]
@@ -15,6 +15,7 @@
 [ext_resource type="Shader" path="res://shaders/color_offset.gdshader" id="6_r7iwf"]
 [ext_resource type="Shader" path="res://shaders/4color.gdshader" id="6_wphee"]
 [ext_resource type="Shader" path="res://shaders/vignette.gdshader" id="6_xeaem"]
+[ext_resource type="PackedScene" uid="uid://cqk275afkom5q" path="res://dangers/big_floater.tscn" id="8_adkvo"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="8_r6dvc"]
 [ext_resource type="Shader" path="res://shaders/background_blur.gdshader" id="11_pspac"]
 [ext_resource type="PackedScene" uid="uid://cx5onqwiu8y56" path="res://dangers/rocket.tscn" id="15_8ajws"]
@@ -85,6 +86,7 @@ power = ExtResource("4_ul4hi")
 beam = ExtResource("6_47bp6")
 floater = ExtResource("5_tkusv")
 rocket = ExtResource("15_8ajws")
+big_floater = ExtResource("8_adkvo")
 
 [node name="Background" type="CanvasGroup" parent="."]
 z_index = -100

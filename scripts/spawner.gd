@@ -41,7 +41,7 @@ func run(delta: float) -> void:
 	
 	next_big_floater -= delta
 	if next_big_floater < 0:
-		next_big_floater = randf_range(240/TPS, 360/TPS)
+		next_big_floater = randf_range(240/TPS*2, 360/TPS*2)
 		spawn(big_floater)
 	
 	next_rocket -= delta

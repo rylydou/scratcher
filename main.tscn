@@ -70,7 +70,7 @@ shader_parameter/vignette_intensity = 0.4
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gl5og"]
 shader = ExtResource("11_pspac")
 shader_parameter/blur_amount = 1.0
-shader_parameter/mix_amount = 0.0
+shader_parameter/mix_amount = 0.5
 shader_parameter/color_over = Color(0, 0, 0, 1)
 shader_parameter/noise_size = 12.0
 shader_parameter/noise_fps = 6.0
@@ -294,7 +294,7 @@ offset_right = 448.0
 offset_bottom = 456.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.501961)
+color = Color(0, 0, 0, 1)
 
 [node name="DeathLabel" type="Label" parent="UI/DeathScreen"]
 layout_mode = 1

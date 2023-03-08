@@ -1,7 +1,11 @@
 extends Area2D
 
-@export var speed_min := 8.0
-@export var speed_max := 16.0
+@export var size := 64.
+@export var shape_resolution := 360.
+@export var shape_thickness := 0.05
+
+@export var speed_min := 8.
+@export var speed_max := 16.
 @onready var speed := randf_range(speed_min, speed_max)
 
 func _ready() -> void:
@@ -10,13 +14,17 @@ func _ready() -> void:
 	position.y = randf_range(100, -100)
 	speed *= -dir
 	
-	return
+	var points: PackedVector2Array = []
+	points.resize(shape_resolution)
+	for i in shape_resolution:
+		var point := Vector2.from_angle(float(i)/shape_resolution*PI*2)
+		var distance := size/2 - (size*shape_thickness)/2
+		point *= distance
+		points[i] = point
 	
-	var shape: CollisionPolygon2D = $Shape
-	for i in 360:
-		var point := Vector2.from_angle(deg_to_rad(i))
-		point *= 32.
-		shape.polygon.append(point)
+	$Shape.polygon = points
+	$Rect.size = Vector2(size, size)
+	$Rect.position = Vector2(-size/2, -size/2)
 
 func _physics_process(delta: float) -> void:
 	position.x += speed*delta

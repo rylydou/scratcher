@@ -5,17 +5,17 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hmvnn"]
 shader = ExtResource("3_cr76o")
-shader_parameter/radius = 0.35
-shader_parameter/border = 0.05
+shader_parameter/radius = 0.5
+shader_parameter/border = 0.02
 
 [node name="BigFloater" type="Area2D"]
 scale = Vector2(2, 2)
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_f2p8l")
-size = 128.0
-shape_resolution = 10.0
-shape_thickness = 0.35
+size = 192.0
+shape_resolution = 18.0
+shape_thickness = 0.02
 speed_min = 24.0
 speed_max = 24.0
 

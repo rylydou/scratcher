@@ -8,6 +8,7 @@ extends Area2D
 @export var speed_max := 16.
 @onready var speed := randf_range(speed_min, speed_max)
 
+var age:= 0.
 func _ready() -> void:
 	var dir = -1 if randi()%2 == 0 else 1
 	position.x = 400*dir
@@ -27,6 +28,9 @@ func _ready() -> void:
 	$Rect.position = Vector2(-size/2, -size/2)
 
 func _physics_process(delta: float) -> void:
+	age += delta
+	var v := sin(age)/4. + 1.
+	scale = Vector2(v, v)
 	position.x += speed*delta
 	
 	if position.x > 500 or position.x < -500:

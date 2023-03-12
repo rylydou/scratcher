@@ -7,11 +7,11 @@ const TPS = 60.0
 @export_group('Platformer State')
 
 @export_subgroup('Movement')
-@export var move_max := 36.0
+@export var move_max := 36.
 #@export_category('Ground')
-@export var move_acc_ticks := 3.0
+@export var move_acc_ticks := 3.
 @onready var move_acc_time := move_acc_ticks / TPS
-@export var move_dec_ticks := 4.0
+@export var move_dec_ticks := 4.
 @onready var move_dec_time := move_dec_ticks / TPS
 @export var move_opp_ticks := 2.0
 @onready var move_opp_time := move_opp_ticks / TPS
@@ -69,6 +69,8 @@ func _enter_tree() -> void:
 	Globals.player = self
 
 func _ready() -> void:
+	$AnimationPlayer.play('RESET')
+	
 	reset_movement()
 	
 	var base := trail.get_child(0) as Sprite2D
@@ -81,9 +83,9 @@ func _process(delta: float) -> void:
 	process_inputs()
 	
 	if inv_timer > 0.0:
-		modulate.a = randf()
+		art_node.modulate.a = randi_range(0,1)
 	else:
-		modulate.a = 1.0
+		art_node.modulate.a = 1.0
 	
 	var hisotry_size := history.size()
 	for index in $Trail.get_child_count():
@@ -193,25 +195,25 @@ func process_movement(delta: float) -> void:
 	var hit_wall_on_right := is_on_wall() and test_move(transform, Vector2.RIGHT)
 	
 	if hit_wall_on_left:
-		if speed_move < 0.0:
-			speed_move = -1.0
-		if speed_extra < 0.0: 
-			speed_extra = 0.0
+		if speed_move < 0.:
+			speed_move = -1.
+		if speed_extra < 0.: 
+			speed_extra = 0.
 	
 	if hit_wall_on_right:
-		if speed_move > 0.0:
-			speed_move = 1.0
-		if speed_extra > 0.0: 
-			speed_extra = 0.0
+		if speed_move > 0.:
+			speed_move = 1.
+		if speed_extra > 0.: 
+			speed_extra = 0.
 
 func process_gravity(delta: float) -> void:
 	if is_on_ceiling():
-		if !try_bonknudge(max_bonknuge_distance * facing_direction):
-			if speed_vertical < 0.0: speed_vertical = 0.0
+		if !try_bonknudge(max_bonknuge_distance*facing_direction):
+			if speed_vertical < 0.: speed_vertical = 0.
 	
 	if is_on_floor():
-		if speed_vertical > 0.0: 
-			speed_vertical = 0.0
+		if speed_vertical > 0.:
+			speed_vertical = 0.
 	else:
 		speed_vertical += gravity*(1.0 if input_jump else extra_fall_mult)*delta
 	
@@ -220,9 +222,9 @@ func process_gravity(delta: float) -> void:
 		speed_vertical = max_fall_speed
 
 func try_bonknudge(distance: float) -> bool:
-	var x := 0.0
+	var x := 0.
 	while x != distance:
-		if !test_move(transform.translated(Vector2(x, 0)), Vector2.UP):
+		if !test_move(transform.translated(Vector2(x, 0.)), Vector2.UP):
 			position.x += x
 			return true
 		x = move_toward(x, distance, 1)
@@ -237,14 +239,14 @@ func process_jump(delta: float) -> void:
 	if input_jump_press:
 		jump_buffer_timer = jump_buffer_ticks / TPS
 	
-	if (coyote_timer > 0.0 or powers > 0) and jump_buffer_timer > 0.0:
-		if coyote_timer <= 0.0:
+	if (coyote_timer > 0. or powers > 0) and jump_buffer_timer > 0.:
+		if coyote_timer <= 0.:
 			powers -= 1
 		
 		is_jumping = true
 		input_jump_press = false
-		coyote_timer = 0.0
-		jump_buffer_timer = 0.0
+		coyote_timer = 0.
+		jump_buffer_timer = 0.
 		
 		var jump_velocity := calculate_jump_velocity(jump_height)
 		speed_vertical = -jump_velocity
@@ -274,6 +276,7 @@ func process_dash(delta: float) -> void:
 			position.x + facing_direction*dash_distance,
 			dash_time)
 		dash_line_tween.tween_property(dash_line, 'modulate:a', 0., 5/TPS)
+		$TeleportSFX.play()
 
 func move() -> void:
 	velocity.x = speed_move + speed_extra
@@ -282,33 +285,44 @@ func move() -> void:
 	move_and_slide()
 
 func calculate_gravity_for_jump(height: float, duration: float) -> float:
-	return 8*(height/pow(duration, 2))
+	return 8.*(height/pow(duration, 2.))
 
 func calculate_jump_velocity(height: float) -> float:
 	return sqrt(2*gravity*height)
 
 func hurt() -> void:
+	if is_dead: return
 	if inv_timer > 0:
 		return
+	
+	$AnimationPlayer.play('death')
+	$DeathFX.position = position
 	
 	if powers >= power_for_inv:
 		# consume all the power, either 2 or 1
 		powers = 0
-		inv_timer = 1.0
+		inv_timer = power_inv_frames/TPS
 		
-		if position.y > 144.0:
+		if position.y > 144.:
 			position = Vector2.ZERO
 		
 		return
 	
 	die()
 
+var is_dead := false
 func die() -> void:
+	if is_dead: return
+	is_dead = true
+	
 	EventBus.player_died.emit()
-	hide()
+	art_node.hide()
+	trail.hide()
+	dash_line.hide()
 	set_process(false)
 	set_physics_process(false)
+	$DeathSFX.play()
 
-var inv_timer:= 0.0
+var inv_timer:= 0.
 func _on_hurtbox_area_area_entered(area: Area2D) -> void:
 	hurt()

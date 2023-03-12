@@ -55,7 +55,7 @@ func fade_out() -> void:
 	modulate.a = 1.
 	var tween := get_tree().create_tween()
 	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-	tween.tween_property(self, 'modulate:a', 0, 1.)
+	tween.tween_property(self, 'modulate:a', 0, .5)
 	
 	await tween.finished
 
@@ -82,4 +82,17 @@ func do_move() -> void:
 	await tween.finished
 
 func do_stay() -> void:
-	await get_tree().create_timer(stay_time).timeout
+	const TIMES := 16
+	var tween := get_tree().create_tween()
+	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_loops(TIMES)
+	tween.tween_property(self, 'position:x',
+		position.x + 1,
+		stay_time/TIMES/2)
+	tween.tween_property(self, 'position:x',
+		position.x - 1,
+		stay_time/TIMES/2)
+	
+	await tween.finished

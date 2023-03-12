@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfyj3dp42srjv"]
+[gd_scene load_steps=5 format=3 uid="uid://dfyj3dp42srjv"]
 
 [ext_resource type="Script" path="res://scripts/power.gd" id="1_45yl2"]
 [ext_resource type="Texture2D" uid="uid://dvb5fg4b72yjq" path="res://assets/sprites/power.svg" id="1_po4hk"]
+[ext_resource type="AudioStream" uid="uid://bicvollk7oqjp" path="res://assets/sounds/point.wav" id="3_nid02"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oqq15"]
 radius = 6.0
@@ -29,5 +30,8 @@ theme_override_font_sizes/font_size = 8
 text = "+500"
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="PickupSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_nid02")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

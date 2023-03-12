@@ -1,8 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://y7se8lyqnqrb"]
+[gd_scene load_steps=15 format=3 uid="uid://brshbadsm12sd"]
 
 [ext_resource type="PackedScene" uid="uid://3ce42vafpkkq" path="res://sprites/box.tscn" id="1_quvpx"]
 [ext_resource type="Script" path="res://player.gd" id="1_vwhuc"]
 [ext_resource type="Texture2D" uid="uid://dvb5fg4b72yjq" path="res://assets/sprites/power.svg" id="3_vye06"]
+[ext_resource type="Shader" path="res://shaders/circle.gdshader" id="4_e45gg"]
+[ext_resource type="AudioStream" uid="uid://dr6hvikyu5otg" path="res://assets/sounds/hurt.wav" id="5_absoq"]
+[ext_resource type="AudioStream" uid="uid://celgmw1y4pljf" path="res://assets/sounds/teleport.wav" id="6_netav"]
+[ext_resource type="AudioStream" uid="uid://chvk8a6fh3bsj" path="res://assets/sounds/death.ogg" id="6_t56yn"]
 
 [sub_resource type="Gradient" id="Gradient_u0t2v"]
 colors = PackedColorArray(1, 1, 1, 0.75, 1, 1, 1, 1)
@@ -13,19 +17,124 @@ size = Vector2(8, 8)
 [sub_resource type="CircleShape2D" id="CircleShape2D_rinle"]
 radius = 2.0
 
+[sub_resource type="Animation" id="Animation_yg1lf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathFX/ColorRect:material:shader_parameter/radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathFX/ColorRect:material:shader_parameter/border")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathFX/ColorRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_c3mfp"]
+resource_name = "death"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathFX/ColorRect:material:shader_parameter/radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.666667),
+"transitions": PackedFloat32Array(0.1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathFX/ColorRect:material:shader_parameter/border")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.666667),
+"transitions": PackedFloat32Array(1, 0.5, 1),
+"update": 0,
+"values": [1.0, 1.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathFX/ColorRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HurtSFX")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e8t06"]
+_data = {
+"RESET": SubResource("Animation_yg1lf"),
+"death": SubResource("Animation_c3mfp")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fh02m"]
+shader = ExtResource("4_e45gg")
+shader_parameter/radius = 0.0
+shader_parameter/border = 1.0
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
 collision_layer = 2
 script = ExtResource("1_vwhuc")
 move_max = 160.0
-move_acc_ticks = 6.0
+move_acc_ticks = 8.0
 move_dec_ticks = 8.0
 move_opp_ticks = 4.0
-move_acc_air_ticks = 12.0
+move_acc_air_ticks = 16.0
 move_dec_air_ticks = 16.0
-move_opp_air_ticks = 8.0
+move_opp_air_ticks = 16.0
 jump_ticks = 50
 jump_height = 64.0
+extra_fall_mult = 1.0
 max_fall_speed_ratio = 1.0
 coyote_time_ticks = 12
 jump_buffer_ticks = 8
@@ -65,5 +174,42 @@ top_level = true
 modulate = Color(1, 1, 1, 0.67)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_vye06")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_e8t06")
+}
+
+[node name="DeathFX" type="Node2D" parent="."]
+process_mode = 3
+top_level = true
+z_index = 50
+
+[node name="ColorRect" type="ColorRect" parent="DeathFX"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_fh02m")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(48, 48)
+
+[node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_absoq")
+
+[node name="DeathSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_t56yn")
+
+[node name="TeleportSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_netav")
+max_polyphony = 3
 
 [connection signal="area_entered" from="HurtboxArea" to="." method="_on_hurtbox_area_area_entered"]

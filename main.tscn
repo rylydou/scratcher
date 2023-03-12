@@ -1,6 +1,6 @@
-[gd_scene load_steps=28 format=3 uid="uid://5n3i1adn5rug"]
+[gd_scene load_steps=31 format=3 uid="uid://5n3i1adn5rug"]
 
-[ext_resource type="PackedScene" uid="uid://y7se8lyqnqrb" path="res://player.tscn" id="1_853u3"]
+[ext_resource type="PackedScene" uid="uid://brshbadsm12sd" path="res://player.tscn" id="1_853u3"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_lp1b3"]
 [ext_resource type="PackedScene" uid="uid://3ce42vafpkkq" path="res://sprites/box.tscn" id="2_c4nqj"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="3_x4feb"]
@@ -19,6 +19,28 @@
 [ext_resource type="Script" path="res://scripts/camera.gd" id="8_r6dvc"]
 [ext_resource type="Shader" path="res://shaders/background_blur.gdshader" id="11_pspac"]
 [ext_resource type="PackedScene" uid="uid://cx5onqwiu8y56" path="res://dangers/rocket.tscn" id="15_8ajws"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ju8iq"]
+shader = ExtResource("6_r7iwf")
+shader_parameter/carb_master = 1.0
+shader_parameter/carb_red = Vector2(0, 1)
+shader_parameter/carb_green = Vector2(1, 0)
+shader_parameter/carb_blue = Vector2(-1, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qnf34"]
+shader = ExtResource("3_y0awt")
+shader_parameter/sl_count = 50.0
+shader_parameter/sl_speed = -0.05
+shader_parameter/sl_xfactor = 0.0
+shader_parameter/sl_yfactor = 1.0
+shader_parameter/sl_opacity = 1.0
+shader_parameter/sl_power = 0.1
+shader_parameter/sl_sharpness = 10.0
+shader_parameter/sl_bias = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5il60"]
+shader = ExtResource("6_xeaem")
+shader_parameter/vignette_intensity = 0.4
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qi7ct"]
 shader = ExtResource("6_wphee")
@@ -45,28 +67,6 @@ size = Vector2(16, 16)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_wapsn"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ju8iq"]
-shader = ExtResource("6_r7iwf")
-shader_parameter/carb_master = 1.0
-shader_parameter/carb_red = Vector2(0, 1)
-shader_parameter/carb_green = Vector2(1, 0)
-shader_parameter/carb_blue = Vector2(-1, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qnf34"]
-shader = ExtResource("3_y0awt")
-shader_parameter/sl_count = 50.0
-shader_parameter/sl_speed = -0.05
-shader_parameter/sl_xfactor = 0.0
-shader_parameter/sl_yfactor = 1.0
-shader_parameter/sl_opacity = 1.0
-shader_parameter/sl_power = 0.1
-shader_parameter/sl_sharpness = 10.0
-shader_parameter/sl_bias = 0.1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5il60"]
-shader = ExtResource("6_xeaem")
-shader_parameter/vignette_intensity = 0.4
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gl5og"]
 shader = ExtResource("11_pspac")
 shader_parameter/blur_amount = 1.0
@@ -75,6 +75,44 @@ shader_parameter/color_over = Color(0, 0, 0, 1)
 shader_parameter/noise_size = 12.0
 shader_parameter/noise_fps = 6.0
 shader_parameter/noise_color = Color(1, 1, 1, 0.0980392)
+
+[sub_resource type="Animation" id="Animation_peeti"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_sissi"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ndiex"]
+_data = {
+"RESET": SubResource("Animation_peeti"),
+"idle": SubResource("Animation_sissi")
+}
 
 [node name="Main" type="Node"]
 script = ExtResource("1_lp1b3")
@@ -87,6 +125,33 @@ beam = ExtResource("6_47bp6")
 floater = ExtResource("5_tkusv")
 rocket = ExtResource("15_8ajws")
 big_floater = ExtResource("8_adkvo")
+
+[node name="Postprocess" type="Node2D" parent="."]
+visible = false
+z_index = 100
+
+[node name="ColorOffset" type="ColorRect" parent="Postprocess"]
+material = SubResource("ShaderMaterial_ju8iq")
+offset_left = -496.0
+offset_top = -536.0
+offset_right = 504.0
+offset_bottom = 464.0
+
+[node name="Scanline" type="ColorRect" parent="Postprocess"]
+material = SubResource("ShaderMaterial_qnf34")
+offset_left = -496.0
+offset_top = -536.0
+offset_right = 504.0
+offset_bottom = 464.0
+color = Color(0, 0, 0, 0)
+
+[node name="Vignette" type="ColorRect" parent="Postprocess"]
+material = SubResource("ShaderMaterial_5il60")
+offset_left = -496.0
+offset_top = -536.0
+offset_right = 504.0
+offset_bottom = 464.0
+color = Color(0, 0, 0, 0.501961)
 
 [node name="Background" type="CanvasGroup" parent="."]
 z_index = -100
@@ -118,6 +183,7 @@ texture = ExtResource("5_v8c67")
 stretch_mode = 1
 
 [node name="Score" type="Node2D" parent="Background"]
+visible = false
 
 [node name="Label" type="Label" parent="Background/Score"]
 anchors_preset = 8
@@ -140,73 +206,44 @@ vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="Background/Score/Label"]
 layout_mode = 1
-offset_top = -25.5
-offset_right = 68.0
-offset_bottom = 0.5
+offset_top = -16.5
+offset_right = 128.0
+offset_bottom = -1.5
 theme_override_colors/font_color = Color(0.33, 0.33, 0.33, 1)
 theme_override_fonts/font = ExtResource("5_ctymc")
-theme_override_font_sizes/font_size = 16
-text = "score"
-vertical_alignment = 1
+theme_override_font_sizes/font_size = 12
+text = "00000000"
+vertical_alignment = 2
 
 [node name="TimeLabel" type="Label" parent="Background/Score/Label"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -84.0
-offset_top = -25.5
-offset_bottom = 0.5
+offset_left = -116.0
+offset_top = -16.5
+offset_bottom = -1.5
 grow_horizontal = 0
 theme_override_colors/font_color = Color(0.33, 0.33, 0.33, 1)
 theme_override_fonts/font = ExtResource("5_ctymc")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 12
 text = "00:00:00"
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 
 [node name="Game" type="Node2D" parent="."]
 
 [node name="Stage" type="Node2D" parent="Game"]
 
 [node name="Platform" type="StaticBody2D" parent="Game/Stage"]
-position = Vector2(0, 128)
+position = Vector2(0, 112)
 scale = Vector2(32, 1.5)
 collision_mask = 0
+metadata/_edit_group_ = true
 
 [node name="Box" parent="Game/Stage/Platform" instance=ExtResource("2_c4nqj")]
 
 [node name="Shape" type="CollisionShape2D" parent="Game/Stage/Platform"]
-shape = SubResource("RectangleShape2D_cm13g")
-
-[node name="Platform2" type="StaticBody2D" parent="Game/Stage"]
-position = Vector2(0, 88)
-scale = Vector2(4, 4)
-collision_mask = 0
-
-[node name="Box" parent="Game/Stage/Platform2" instance=ExtResource("2_c4nqj")]
-
-[node name="Shape" type="CollisionShape2D" parent="Game/Stage/Platform2"]
-shape = SubResource("RectangleShape2D_cm13g")
-
-[node name="Platform3" type="StaticBody2D" parent="Game/Stage"]
-position = Vector2(-160, 56)
-scale = Vector2(4, 1)
-collision_mask = 0
-
-[node name="Box" parent="Game/Stage/Platform3" instance=ExtResource("2_c4nqj")]
-
-[node name="Shape" type="CollisionShape2D" parent="Game/Stage/Platform3"]
-shape = SubResource("RectangleShape2D_cm13g")
-
-[node name="Platform4" type="StaticBody2D" parent="Game/Stage"]
-position = Vector2(160, 8)
-scale = Vector2(4, 1)
-collision_mask = 0
-
-[node name="Box" parent="Game/Stage/Platform4" instance=ExtResource("2_c4nqj")]
-
-[node name="Shape" type="CollisionShape2D" parent="Game/Stage/Platform4"]
 shape = SubResource("RectangleShape2D_cm13g")
 
 [node name="SpawnPoint" type="Marker2D" parent="Game/Stage"]
@@ -223,39 +260,41 @@ shape = SubResource("WorldBoundaryShape2D_wapsn")
 
 [node name="World" type="Node2D" parent="Game"]
 
-[node name="Postprocess" type="Node2D" parent="."]
-z_index = 100
-
-[node name="ColorOffset" type="ColorRect" parent="Postprocess"]
-material = SubResource("ShaderMaterial_ju8iq")
-offset_left = -496.0
-offset_top = -536.0
-offset_right = 504.0
-offset_bottom = 464.0
-
-[node name="Scanline" type="ColorRect" parent="Postprocess"]
-material = SubResource("ShaderMaterial_qnf34")
-offset_left = -496.0
-offset_top = -536.0
-offset_right = 504.0
-offset_bottom = 464.0
-color = Color(0, 0, 0, 0)
-
-[node name="Vignette" type="ColorRect" parent="Postprocess"]
-material = SubResource("ShaderMaterial_5il60")
-offset_left = -496.0
-offset_top = -536.0
-offset_right = 504.0
-offset_bottom = 464.0
-color = Color(0, 0, 0, 0.501961)
-
 [node name="UI" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
 
 [node name="StartScreen" type="Control" parent="UI"]
-visible = false
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="UI/StartScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -168.0
+offset_top = -80.0
+offset_right = 168.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_shadow_color = Color(1, 0, 0.333333, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 8
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("4_clpxv")
+theme_override_font_sizes/font_size = 48
+text = "TELECADE"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
 
 [node name="PromptLabel" type="Label" parent="UI/StartScreen"]
 layout_mode = 1
@@ -264,20 +303,41 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -88.5
-offset_top = -13.0
-offset_right = 88.5
-offset_bottom = 13.0
+offset_left = -47.0
+offset_top = 20.0
+offset_right = 47.0
+offset_bottom = 39.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("5_ctymc")
-text = "Press space to start"
+text = "TELEPORT TO START"
 horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="PromptLabel2" type="Label" parent="UI/StartScreen"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -136.5
+offset_top = -19.0
+offset_right = 136.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 8
+text = "* proof of concept *"
+horizontal_alignment = 1
+vertical_alignment = 1
 uppercase = true
 
 [node name="DeathScreen" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -287,21 +347,27 @@ grow_vertical = 2
 
 [node name="Background" type="ColorRect" parent="UI/DeathScreen"]
 material = SubResource("ShaderMaterial_gl5og")
-layout_mode = 2
-offset_left = -448.0
-offset_top = -440.0
-offset_right = 448.0
-offset_bottom = 456.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="DeathLabel" type="Label" parent="UI/DeathScreen"]
 layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -216.0
-offset_top = -88.0
+offset_top = -90.0
 offset_right = 216.0
-offset_bottom = -21.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_colors/font_shadow_color = Color(1, 0, 0.333333, 1)
@@ -315,19 +381,79 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="PromptLabel" type="Label" parent="UI/DeathScreen"]
+[node name="ScoreLabel" type="Label" parent="UI/DeathScreen"]
 layout_mode = 1
-offset_left = -80.0
-offset_top = 24.0
-offset_right = 80.0
-offset_bottom = 43.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.5
+offset_top = 23.0
+offset_right = 10.5
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("5_ctymc")
-text = "Try Again?"
+theme_override_fonts/font = ExtResource("4_clpxv")
+theme_override_font_sizes/font_size = 24
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
+
+[node name="SufixLabel" type="Label" parent="UI/DeathScreen/ScoreLabel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -17.0
+offset_right = 14.0
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 12
+text = "p"
+vertical_alignment = 2
+uppercase = true
+
+[node name="HighscoreLabel" type="Label" parent="UI/DeathScreen/ScoreLabel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -42.5
+offset_right = 105.0
+offset_bottom = -23.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(105, 9)
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_shadow_color = Color(1, 0, 0.333333, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5_ctymc")
+text = "New Highscore"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/DeathScreen/ScoreLabel/HighscoreLabel"]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_ndiex")
+}
 
 [node name="Camera" type="Camera2D" parent="."]
 script = ExtResource("8_r6dvc")

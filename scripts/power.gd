@@ -6,7 +6,7 @@ var stop := false
 
 func _ready() -> void:
 	position.x = randf_range(-256, 256)
-	position.y = randf_range(32, 100)
+	position.y = randf_range(50, 100)
 
 func _physics_process(delta: float) -> void:
 	if stop: return
@@ -39,5 +39,7 @@ func _on_body_entered(player: Player) -> void:
 		await t.finished
 	else:
 		player.powers += 1
+		$PickupSFX.play()
+		await $PickupSFX.finished
 	
 	queue_free()

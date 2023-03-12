@@ -1,18 +1,17 @@
 extends Area2D
 
 @export var size := 64.
-@export var shape_resolution := 360.
+@export var shape_resolution := 18.
 @export var shape_thickness := 0.05
 
 @export var speed_min := 8.
 @export var speed_max := 16.
 @onready var speed := randf_range(speed_min, speed_max)
 
-var age:= 0.
 func _ready() -> void:
 	var dir = -1 if randi()%2 == 0 else 1
-	position.x = 400*dir
-	position.y = randf_range(100, -100)
+	position.x = 500*dir
+	position.y = randf_range(0, 100)
 	speed *= -dir
 	
 	var points: PackedVector2Array = []
@@ -27,10 +26,8 @@ func _ready() -> void:
 	$Rect.size = Vector2(size, size)
 	$Rect.position = Vector2(-size/2, -size/2)
 
+var scl := 0.
 func _physics_process(delta: float) -> void:
-	age += delta
-	var v := sin(age)/4. + 1.
-	scale = Vector2(v, v)
 	position.x += speed*delta
 	
 	if position.x > 500 or position.x < -500:

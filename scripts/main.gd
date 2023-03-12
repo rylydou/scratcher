@@ -10,9 +10,15 @@ class_name Main extends Node
 # UI
 @onready var start_screen: Control = $UI/StartScreen
 @onready var death_screen: Control = $UI/DeathScreen
+
+@onready var background: Node2D = $Background/Score
 @onready var postprocess: Node2D = $Postprocess
 
+var ds := DataStore.new('user://store.json', DataStore.Format.TextFile)
+
 var running := false
+
+var highscore: int
 
 var points: int
 var start_timestamp: int
@@ -24,8 +30,16 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	EventBus.player_died.connect(player_died)
 	EventBus.game_started.connect(start_game)
-	start_screen.show()
+	
+	ds.load_from_disk()
+	highscore = ds.fetch('highscore', 0)
+	$Background/Score/Label/ScoreLabel.text = str(highscore)
+	
+	background.hide()
+	death_screen.hide()
+	
 	postprocess.show()
+	start_screen.show()
 
 func _process(delta: float) -> void:
 	if not running:
@@ -55,6 +69,7 @@ func time_convert(time_in_sec: float) -> String:
 	return "%02d:%02d:%02d" % [minutes, seconds, fracts]
 
 func start_game() -> void:
+	background.show()
 	points = 0
 	start_timestamp = Time.get_ticks_msec()
 	acumulated_time = 0.
@@ -77,7 +92,19 @@ func start_game() -> void:
 func player_died() -> void:
 	running = false
 	
+	var score := calculate_score()
+	
+	$UI/DeathScreen/ScoreLabel.text = str(score)
+	$UI/DeathScreen/ScoreLabel/HighscoreLabel.hide()
+	if score > highscore:
+		$UI/DeathScreen/ScoreLabel/HighscoreLabel.show()
+		highscore = score
+		$Background/Score/Label/ScoreLabel.text = str(highscore)
+		ds.store('highscore', highscore)
+		ds.save_to_disk()
+	
 	death_screen.show()
+	background.hide()
 
 func calculate_score() -> int:
 	var score := points

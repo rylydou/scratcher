@@ -1,13 +1,12 @@
 shader_type canvas_item;
 
-uniform float radius: hint_range(0.0, 1.0) = 1.;
-uniform float border: hint_range(0.0, 1.0) = .1;
+uniform float radius = 1.0;
+uniform float border = 0.1;
 
 void fragment() {
-	const vec2 center = vec2(.5, .5);
-	const float s = SCREEN_PIXEL_SIZE.x*2.;
+	vec2 center = vec2(0.5, 0.5);
+	float s = SCREEN_PIXEL_SIZE.x*2.0;
 	
 	float l = length(UV - center);
-	float a = smoothstep(s, 0., abs(l - radius*.5 + border*.25 + s) - border*.25);   
-	COLOR.a *= a;
+	COLOR.a *= smoothstep(s, 0.0, abs(l - radius*.5 + border*0.25 + s) - border*0.25);
 }

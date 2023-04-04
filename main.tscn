@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://5n3i1adn5rug"]
+[gd_scene load_steps=32 format=3 uid="uid://5n3i1adn5rug"]
 
 [ext_resource type="PackedScene" uid="uid://brshbadsm12sd" path="res://player.tscn" id="1_853u3"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_lp1b3"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cqk275afkom5q" path="res://dangers/big_floater.tscn" id="8_adkvo"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="8_r6dvc"]
 [ext_resource type="Shader" path="res://shaders/background_blur.gdshader" id="11_pspac"]
+[ext_resource type="Texture2D" uid="uid://b5rq64xcfxrhw" path="res://assets/sprites/box.svg" id="13_g1tcj"]
 [ext_resource type="PackedScene" uid="uid://cx5onqwiu8y56" path="res://dangers/rocket.tscn" id="15_8ajws"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ju8iq"]
@@ -61,6 +62,7 @@ shader_parameter/scroll_direction = Vector2(0, 0)
 shader_parameter/scrolling_speed = 0.08
 shader_parameter/enable_palette_cycling = false
 shader_parameter/palette_speed = 0.1
+shader_parameter/scale = 3.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cm13g"]
 size = Vector2(16, 16)
@@ -130,57 +132,38 @@ big_floater = ExtResource("8_adkvo")
 visible = false
 z_index = 100
 
-[node name="ColorOffset" type="ColorRect" parent="Postprocess"]
+[node name="ColorOffset" type="Sprite2D" parent="Postprocess"]
 material = SubResource("ShaderMaterial_ju8iq")
-offset_left = -496.0
-offset_top = -536.0
-offset_right = 504.0
-offset_bottom = 464.0
+scale = Vector2(50, 50)
+texture = ExtResource("13_g1tcj")
 
-[node name="Scanline" type="ColorRect" parent="Postprocess"]
+[node name="Scanline" type="Sprite2D" parent="Postprocess"]
+modulate = Color(0, 0, 0, 1)
 material = SubResource("ShaderMaterial_qnf34")
-offset_left = -496.0
-offset_top = -536.0
-offset_right = 504.0
-offset_bottom = 464.0
-color = Color(0, 0, 0, 0)
+scale = Vector2(50, 50)
+texture = ExtResource("13_g1tcj")
 
-[node name="Vignette" type="ColorRect" parent="Postprocess"]
+[node name="Vignette" type="Sprite2D" parent="Postprocess"]
+modulate = Color(0, 0, 0, 0.501961)
 material = SubResource("ShaderMaterial_5il60")
-offset_left = -496.0
-offset_top = -536.0
-offset_right = 504.0
-offset_bottom = 464.0
-color = Color(0, 0, 0, 0.501961)
+scale = Vector2(50, 50)
+texture = ExtResource("13_g1tcj")
 
 [node name="Background" type="CanvasGroup" parent="."]
 z_index = -100
 
 [node name="Background" type="Node2D" parent="Background"]
 
-[node name="Colors" type="ColorRect" parent="Background/Background"]
+[node name="Colors" type="Sprite2D" parent="Background/Background"]
 material = SubResource("ShaderMaterial_qi7ct")
-offset_left = -500.0
-offset_top = -500.0
-offset_right = 500.0
-offset_bottom = 500.0
+scale = Vector2(50, 50)
+texture = ExtResource("13_g1tcj")
 
-[node name="Mother" type="TextureRect" parent="Background/Background"]
-modulate = Color(1, 1, 1, 0.1)
+[node name="Mother" type="Sprite2D" parent="Background/Background"]
+modulate = Color(1, 1, 1, 0.101961)
 material = SubResource("ShaderMaterial_63q27")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -450.0
-offset_top = -450.0
-offset_right = 450.0
-offset_bottom = 450.0
-grow_horizontal = 2
-grow_vertical = 2
+scale = Vector2(3, 3)
 texture = ExtResource("5_v8c67")
-stretch_mode = 1
 
 [node name="Score" type="Node2D" parent="Background"]
 visible = false

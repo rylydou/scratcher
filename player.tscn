@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://brshbadsm12sd"]
+[gd_scene load_steps=16 format=3 uid="uid://brshbadsm12sd"]
 
 [ext_resource type="PackedScene" uid="uid://3ce42vafpkkq" path="res://sprites/box.tscn" id="1_quvpx"]
 [ext_resource type="Script" path="res://player.gd" id="1_vwhuc"]
 [ext_resource type="Texture2D" uid="uid://dvb5fg4b72yjq" path="res://assets/sprites/power.svg" id="3_vye06"]
 [ext_resource type="Shader" path="res://shaders/circle.gdshader" id="4_e45gg"]
 [ext_resource type="AudioStream" uid="uid://dr6hvikyu5otg" path="res://assets/sounds/hurt.wav" id="5_absoq"]
+[ext_resource type="Texture2D" uid="uid://b5rq64xcfxrhw" path="res://assets/sprites/box.svg" id="5_u2xjg"]
 [ext_resource type="AudioStream" uid="uid://celgmw1y4pljf" path="res://assets/sounds/teleport.wav" id="6_netav"]
 [ext_resource type="AudioStream" uid="uid://chvk8a6fh3bsj" path="res://assets/sounds/death.ogg" id="6_t56yn"]
 
@@ -186,21 +187,11 @@ process_mode = 3
 top_level = true
 z_index = 50
 
-[node name="ColorRect" type="ColorRect" parent="DeathFX"]
+[node name="ColorRect" type="Sprite2D" parent="DeathFX"]
 modulate = Color(1, 1, 1, 0)
 material = SubResource("ShaderMaterial_fh02m")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -48.0
-offset_top = -48.0
-offset_right = 48.0
-offset_bottom = 48.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(48, 48)
+scale = Vector2(6, 6)
+texture = ExtResource("5_u2xjg")
 
 [node name="HurtSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_absoq")

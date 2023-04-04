@@ -23,8 +23,6 @@ func _ready() -> void:
 		points[i] = point
 	
 	$Shape.polygon = points
-	$Rect.size = Vector2(size, size)
-	$Rect.position = Vector2(-size/2, -size/2)
 
 var scl := 0.
 func _physics_process(delta: float) -> void:

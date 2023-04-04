@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="630"
+   height="500"
+   viewBox="0 0 630 500"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="itch_cover.svg"
+   inkscape:export-filename="itch_cover.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="0.882"
+     inkscape:cx="269.27438"
+     inkscape:cy="307.25624"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="0"
+       y="0"
+       width="630"
+       height="500"
+       id="rect1171" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#000000;stroke-dashoffset:7.4;paint-order:stroke markers fill;fill-opacity:1"
+       id="rect234"
+       width="630"
+       height="500"
+       x="0"
+       y="0" />
+    <text
+       xml:space="preserve"
+       id="text1169"
+       style="font-weight:800;font-size:130px;font-family:Mont;-inkscape-font-specification:'Mont Ultra-Bold';white-space:pre;shape-inside:url(#rect1171);display:inline;fill:#ff0055;fill-opacity:1;stroke-dashoffset:7.4;paint-order:stroke markers fill"
+       transform="translate(55,71.884766)"><tspan
+         x="0"
+         y="146.25"
+         id="tspan1201"><tspan
+           style="fill:#ffffff"
+           id="tspan1197">TELE</tspan><tspan
+           style="font-weight:bold;font-family:GravityBold8;-inkscape-font-specification:'GravityBold8 Bold'"
+           id="tspan1199">
+</tspan></tspan><tspan
+         x="0"
+         y="339.98047"
+         id="tspan1205"><tspan
+           style="font-weight:bold;font-family:GravityBold8;-inkscape-font-specification:'GravityBold8 Bold'"
+           id="tspan1203"> CADE</tspan></tspan></text>
+  </g>
+</svg>

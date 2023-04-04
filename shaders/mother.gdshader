@@ -19,10 +19,11 @@ uniform float scrolling_speed = 0.08;
 uniform bool enable_palette_cycling = false;
 uniform sampler2D palette;
 uniform float palette_speed = 0.1;
+uniform float scale = 1.;
 
 void fragment()
 {
-	const vec2 CORD = UV;
+	vec2 CORD = UV*scale;
 	float diff_x = amplitude * sin((frequency * CORD.y) + (speed * TIME));
 	float diff_y = amplitude_vertical * sin((frequency_vertical * CORD.y)  + (speed_vertical * TIME));
 	vec2 scroll = scroll_direction * TIME * scrolling_speed;

@@ -40,6 +40,21 @@ theme/default_font_antialiasing=0
 theme/default_font_hinting=0
 theme/default_font_subpixel_positioning=0
 
+[importer_defaults]
+
+wav={
+"compress/mode": 0,
+"edit/loop_begin": 0,
+"edit/loop_end": -1,
+"edit/loop_mode": 0,
+"edit/normalize": false,
+"edit/trim": true,
+"force/8_bit": false,
+"force/max_rate": true,
+"force/max_rate_hz": 44100,
+"force/mono": false
+}
+
 [input]
 
 move_left={
@@ -78,5 +93,6 @@ dash={
 
 [rendering]
 
+renderer/rendering_method="mobile"
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
-anti_aliasing/quality/msaa_2d=1
+textures/canvas_textures/default_texture_repeat=1
